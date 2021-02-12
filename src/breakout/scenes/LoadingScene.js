@@ -11,13 +11,21 @@ export default class LoadingScene extends Scene
      * 
      * @param {Engine} engine 
      */
+
     constructor(engine)
     {
         super(engine);
 
         this.loader = new AssetLoader(this);
         /*Load assets here*/
-        this.loader.load("Ball","./assets/images/breakout-ball.png",FileType.TEXTURE)
+        this.loader.load("ball","./assets/images/breakout-ball.png",FileType.TEXTURE)
+        this.loader.load("btnPauseHover","./assets/images/breakout-btn-pause-hover.png",FileType.TEXTURE)
+        this.loader.load("btnPause","./assets/images/breakout-btn-pause.png",FileType.TEXTURE)
+        this.loader.load("btnPinkHover","./assets/images/breakout-btn-pink-hover.png",FileType.TEXTURE)
+        this.loader.load("btnPink","./assets/images/breakout-btn-pink.png",FileType.TEXTURE)
+        this.loader.load("btnPurpleHover","./assets/images/breakout-btn-purple-hover.png",FileType.TEXTURE)
+        this.loader.load("btnPurple","./assets/images/breakout-btn-purple.png",FileType.TEXTURE)
+        this.loader.load("enemyBrick","./assets/images/breakout-enemy-brick.png",FileType.TEXTURE)
 
         const backgroundEntity = new Entity(this, 1024/2.0, 576/2.0)
         
@@ -29,14 +37,26 @@ export default class LoadingScene extends Scene
         const loadingBarOutline = new Entity(this, 1024/2,576/2-20)
         new Image(loadingBarOutline,"loadingBarBackground")
 
-        const loadingBar = new Entity(this, (1024/2)-(322/2),576/2-20)
-        new Image(loadingBar,"loadingBarFill")
+        this.loadingBar = new Entity(this, (1024/2)-(322/2),576/2-20);
+        new Image(this.loadingBar,"loadingBarFill");
 
-        loadingBar.localScale=new Vector2(0,1);
+        //this.loadingBar.localScale=new Vector2(0,1);
     }
 
     update(delta)
     {
         super.update(delta);
+
+        updateLoadingBar(this.loader.assetsLoaded/this.loader.totalAssets)
+
+        /*if(this.loader.assetsLoaded == this.loader.totalAssets){
+
+        }*/
+    }
+
+    updateLoadingBar(percent){
+        this.loadingBar = new Entity(this, (1024/2)-(322/2)*(1-percent),576/2-20)
+        //this.loadingBar.position=new Vector2((1024/2)-(322/2)*(1-percent),576/2-20)
+        this.loadingBar.localScale=new Vector2(percent,1);
     }
 }
