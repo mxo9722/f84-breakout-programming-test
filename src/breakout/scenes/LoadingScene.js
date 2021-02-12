@@ -17,6 +17,7 @@ export default class LoadingScene extends Scene
 
         this.loader = new AssetLoader(this);
         /*Load assets here*/
+        this.loader.load("Ball","./assets/images/breakout-ball.png",FileType.TEXTURE)
 
         const backgroundEntity = new Entity(this, 1024/2.0, 576/2.0)
         
@@ -26,8 +27,12 @@ export default class LoadingScene extends Scene
         new TextField(textEntity, "Loading...", new TextFieldConfig("Arial", "20px", "#FFFFFF", TextAlign.LEFT))
        
         const loadingBarOutline = new Entity(this, 1024/2,576/2-20)
-
         new Image(loadingBarOutline,"loadingBarBackground")
+
+        const loadingBar = new Entity(this, (1024/2)-(322/2),576/2-20)
+        new Image(loadingBar,"loadingBarFill")
+
+        loadingBar.localScale=new Vector2(0,1);
     }
 
     update(delta)
