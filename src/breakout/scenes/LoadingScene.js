@@ -37,26 +37,29 @@ export default class LoadingScene extends Scene
         const loadingBarOutline = new Entity(this, 1024/2,576/2-20)
         new Image(loadingBarOutline,"loadingBarBackground")
 
-        this.loadingBar = new Entity(this, (1024/2)-(322/2),576/2-20);
-        new Image(this.loadingBar,"loadingBarFill");
+        const loadingBar = new Entity(this, (1024/2)-(322/2),576/2-20);
+        new Image(loadingBar,"loadingBarFill");
+    }
 
-        //this.loadingBar.localScale=new Vector2(0,1);
+    updateLoadingBar(percent){
+        //if(this.loadingBar != undefined){
+        console.log(percent)
+        this.entities[3].localPosition=new Vector2((1024/2)-((322/2)*(1-percent)),576/2-20)
+        this.entities[3].localScale=new Vector2(percent,1);
+        //}
     }
 
     update(delta)
     {
         super.update(delta);
 
-        updateLoadingBar(this.loader.assetsLoaded/this.loader.totalAssets)
+        if(this.loader.totalAssets!=0)
+        this.updateLoadingBar(this.loader.assetsLoaded*1.0/this.loader.totalAssets)
 
         /*if(this.loader.assetsLoaded == this.loader.totalAssets){
 
         }*/
     }
 
-    updateLoadingBar(percent){
-        this.loadingBar = new Entity(this, (1024/2)-(322/2)*(1-percent),576/2-20)
-        //this.loadingBar.position=new Vector2((1024/2)-(322/2)*(1-percent),576/2-20)
-        this.loadingBar.localScale=new Vector2(percent,1);
-    }
+    
 }
