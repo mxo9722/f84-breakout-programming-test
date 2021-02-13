@@ -97,6 +97,7 @@ export default class GameScene extends Scene{
     }
 
     update(delta)  {
+        super.update(delta);
         if(this.lives==0 && this.engine.scenes.scenes.length==1)  {
             this.engine.scenes.add(new GameOverScene(this.engine));
         }
