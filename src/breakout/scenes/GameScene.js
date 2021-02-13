@@ -1,5 +1,6 @@
 import Scene from '../../core/Scene.js';
 import Image from '../../core/components/Image.js';
+import LifeDisplay from '../component/LifeDisplay.js';
 import Entity from '../../core/Entity.js';
 import TextField, { TextFieldConfig, TextAlign } from '../../core/components/TextField.js';
 import Scoreboard from '../component/Scoreboard.js';
@@ -48,15 +49,15 @@ export default class GameScene extends Scene{
 
         const firstLife = new Entity(this, 15, 10);
         livesDisplay.addChild(firstLife);
-        new Image(firstLife,"lifeFull")
+        new LifeDisplay(firstLife,"lifeFull","lifeEmpty",3)
 
         const secondLife = new Entity(this, 0, 10);
         livesDisplay.addChild(secondLife);
-        new Image(secondLife,"lifeFull")
+        new LifeDisplay(secondLife,"lifeFull","lifeEmpty",2)
 
         const thirdLife = new Entity(this, -15, 10);
         livesDisplay.addChild(thirdLife);
-        new Image(thirdLife,"lifeFull")
+        new LifeDisplay(thirdLife,"lifeFull","lifeEmpty",1)
 
         const bricks = []
 

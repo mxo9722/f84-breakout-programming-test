@@ -11,7 +11,7 @@ export default class BallController extends Component
         this.bricks = bricks;
         this.paddle = paddle;
 
-        const speed = 240;
+        this.speed = 240;
         
         this.vx = 0
         this.vy = speed;
@@ -82,7 +82,6 @@ export default class BallController extends Component
         if(this.paddle.components[2].containsPoint(futurePos))  {
             const dir = this.entity.getPosition();
             const from = this.paddle.getPosition();
-            const speed = 300.0;
 
             dir.x -= from.x;
             dir.y -= from.y;
@@ -90,11 +89,9 @@ export default class BallController extends Component
             console.log(dir.x)
 
             let length = dir.length;
-            
-            console.log(dir.x*speed)
 
-            dir.x = dir.x*speed/length;
-            dir.y = dir.y*speed/length;
+            dir.x = dir.x*this.speed/length;
+            dir.y = dir.y*this.speed/length;
 
             
 
@@ -110,7 +107,12 @@ export default class BallController extends Component
         this.entity.localPosition = futurePos;
     }
 
-    respawn(){
+    respawn(){        
+        this.vx = 0
+        this.vy = this.speed/2;
 
+        this.entity.localPosition = new Vector2(1024/2,576/2+100);
+
+        this.entity.scene.lives -= 1;
     }
 }
