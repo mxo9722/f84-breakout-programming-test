@@ -10,6 +10,7 @@ import Rectangle from '../component/Rectangle.js';
 import Ball from '../component/BallController.js';
 import PauseScene from './PauseScene.js';
 import GameOverScene from './GameOverScene.js';
+import HighScoreBoard from '../component/HighScoreBoard.js';
 
 export default class GameScene extends Scene{
     /**
@@ -40,9 +41,13 @@ export default class GameScene extends Scene{
         const scoreLine=new Entity(this,1024/2,75)
         new Image(scoreLine,"splashLine")
 
-        //TODO: Implement high score system
+        this.highScore = 0;
+
+        if(localStorage.getItem("highScore")!=undefined)
+            this.highScore = localStorage.getItem("highScore");
+
         const highScore = new Entity(this, 1024/2.0-30, 100)
-        new TextField(highScore, "High Score: \t", new TextFieldConfig("Arial", "20px", "#FFFFFF", TextAlign.CENTER))
+        new HighScoreBoard(highScore, new TextFieldConfig("Arial", "20px", "#FFFFFF", TextAlign.CENTER))
 
         const livesDisplay = new Entity(this, 1024-60,60)
         new TextField(livesDisplay, "Lives: \t", new TextFieldConfig("Arial", "14px", "#FFFFFF", TextAlign.CENTER))
@@ -111,6 +116,11 @@ export default class GameScene extends Scene{
         brick.localPosition.x = -100;
         
         this.score++;
+
+        if(this.score>this.highScore)  {
+            this.highScore = this.score;
+            localStorage.setItem("highScore", this.score);
+        }
     }
 
     rebrick(bricks)  {

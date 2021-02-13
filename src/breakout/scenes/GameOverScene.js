@@ -6,6 +6,7 @@ import HoverButton from '../component/HoverButton.js';
 import SplashScene from './SplashScene.js';
 import Scoreboard from '../component/Scoreboard.js';
 import GameScene from './GameScene.js';
+import HighScoreBoard from '../component/HighScoreBoard.js';
 
 export default class GameOverScene extends Scene
 {
@@ -36,7 +37,7 @@ export default class GameOverScene extends Scene
         new HoverButton(resumeBtn, 259, 56, this.resume, "btnPinkHover", this)
 
         const resumeText = new Entity(this,0,15)
-        new TextField(resumeText, "Resume", new TextFieldConfig("Arial", "42px", "#FFFFFF", TextAlign.CENTER))
+        new TextField(resumeText, "Replay", new TextFieldConfig("Arial", "42px", "#FFFFFF", TextAlign.CENTER))
         resumeBtn.addChild(resumeText);
 
         const quitBtn=new Entity(this,1024/2,576/2+160);
@@ -47,8 +48,11 @@ export default class GameOverScene extends Scene
         new TextField(quitText, "Quit", new TextFieldConfig("Arial", "42px", "#FFFFFF", TextAlign.CENTER))
         quitBtn.addChild(quitText);
 
-        const scoreDisplay = new Entity(this, 1024/2.0, 576/2)
+        const scoreDisplay = new Entity(this, 1024/2.0, 576/2-10)
         new Scoreboard(scoreDisplay,new TextFieldConfig("Arial", "50px", "#FFFFFF", TextAlign.CENTER), this.engine.scenes.scenes[0])
+
+        const highScore = new Entity(this, 1024/2.0, 576/2+30)
+        new HighScoreBoard(highScore, new TextFieldConfig("Arial", "20px", "#FFFFFF", TextAlign.CENTER))
     }
 
     resume(){

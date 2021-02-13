@@ -4,6 +4,7 @@ import Entity from '../../core/Entity.js';
 import TextField, { TextFieldConfig, TextAlign } from '../../core/components/TextField.js';
 import HoverButton from '../component/HoverButton.js';
 import GameScene from './GameScene.js';
+import HighScoreBoard from '../component/HighScoreBoard.js';
 
 export default class SplashScene extends Scene
 {
@@ -27,7 +28,7 @@ export default class SplashScene extends Scene
 
         //TODO: Implement high score system
         const highScore = new Entity(this, 1024/2.0-30, 576/2.0 - 80)
-        new TextField(highScore, "High Score: \t", new TextFieldConfig("Arial", "14px", "#FFFFFF", TextAlign.CENTER))
+        new HighScoreBoard(highScore, new TextFieldConfig("Arial", "14px", "#FFFFFF", TextAlign.CENTER))
 
         const playBtn = new Entity(this,1024/2,576/2+160);
         new Image(playBtn,"btnPurple")
