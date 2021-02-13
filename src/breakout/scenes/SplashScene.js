@@ -2,7 +2,7 @@ import Scene from '../../core/Scene.js';
 import Image from '../../core/components/Image.js';
 import Entity from '../../core/Entity.js';
 import TextField, { TextFieldConfig, TextAlign } from '../../core/components/TextField.js';
-import PlayButton from '../component/PlayButton.js';
+import HoverButton from '../component/HoverButton.js';
 import GameScene from './GameScene.js';
 
 export default class SplashScene extends Scene
@@ -31,7 +31,7 @@ export default class SplashScene extends Scene
 
         const playBtn = new Entity(this,1024/2,576/2+160);
         new Image(playBtn,"btnPurple")
-        new PlayButton(playBtn,259,56,this.play,"btnPurpleHover",this)
+        new HoverButton(playBtn,259,56,this.play,"btnPurpleHover",this)
 
         const playBtnText = new Entity(this,0,15)
         playBtn.addChild(playBtnText)

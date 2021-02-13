@@ -2,10 +2,10 @@ import Vector2 from "../../core/math/Vector2.js";
 import Button from "../../core/components/Button.js";
 import Mouse, {MouseEvent} from "../../core/input/Mouse.js";
 
-export default class SplashScene extends Button
+export default class HoverButton extends Button
 {
     /**
-     * @constructs Button
+     * @constructs HoverButton
      * @param {Entity} entity The entity the button component will be attached to.
      * @param {Number} width The width of the button.
      * @param {Number} height The height of the button.
@@ -71,7 +71,7 @@ export default class SplashScene extends Button
     /**
      * Cleans up input listeners the button is subscribed to.
      * @instance
-     * @memberof PlayButton
+     * @memberof HoverButton
      * @param {Vector2} event 
      */
     destroy()
@@ -79,6 +79,6 @@ export default class SplashScene extends Button
         console.log("Destroy");
         this.entity.scene.input.mouse.events.removeEventListener(MouseEvent.MOUSE_MOVE, this.mouseMove, this);
         this.entity.scene.input.mouse.events.removeEventListener(MouseEvent.MOUSE_DOWN, this.onMouseDown, this);
-        super.destroy();
+        //super.destroy();
     }
 }
