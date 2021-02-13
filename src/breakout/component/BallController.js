@@ -1,6 +1,8 @@
 import Component from "../../core/components/Component.js";
 import Vector2 from "../../core/math/Vector2.js";
 
+import Mouse, {MouseEvent} from "../../core/input/Mouse.js";
+
 export default class BallController extends Component
 {
 
@@ -11,16 +13,46 @@ export default class BallController extends Component
         this.bricks = bricks;
         this.paddle = paddle;
 
-        this.speed = 240;
+        this.speed = 300;
         
         this.vx = 0
-        this.vy = speed;
+        this.vy = 0;
 
-        this.entity.scene.input.mouse.events.addEventListener(MouseEvent.MOUSE_MOVE, this.onMouseMoved, this);
+        this.rebrickTimer = 0;
+
+        this.paddle.addChild(this.entity);
+
+        this.entity.scene.input.mouse.events.addEventListener(MouseEvent.MOUSE_DOWN, this.onMouseDown, this);
     }
 
     update(delta){
-        this.move(delta)
+        if(this.entity.parent!=this.paddle){
+            this.move(delta)
+        }
+        if(this.bricks.length==0){
+            this.rebrickTimer += delta;
+            if(this.rebrickTimer>=2)
+            {
+                this.speed *= 1.3;
+                this.vx *= 1.3;
+                this.vy *= 1.3;
+                this.entity.scene.rebrick(this.bricks);
+                this.rebrickTimer=0;
+            }
+        }
+    }
+
+    onMouseDown(event)  {
+        this.launch.bind(this)(event);
+    }
+
+    launch(event)  {
+        if(this.entity.parent==this.paddle)  {
+            this.paddle.removeChild(this.entity);
+            this.entity.localPosition.x+=this.paddle.getPosition().x;
+            this.entity.localPosition.y+=this.paddle.getPosition().y;
+            this.vy = -this.speed;
+        }
     }
 
     move(delta){
@@ -29,21 +61,18 @@ export default class BallController extends Component
         futurePos.x += this.vx*delta;
         futurePos.y += this.vy*delta;
 
-        if(futurePos.x>1024-this.radius){
+        if(futurePos.x>1024){
             this.vx*=-1;
-            this.move(delta);
-            return;
+            futurePos.x = 1024-Math.abs(futurePos.x-1024)
         }
-        else if(futurePos.x<0+this.radius){
+        else if(futurePos.x<0){
             this.vx*=-1;
-            this.move(delta);
-            return;
+            futurePos.x = Math.abs(futurePos.x);
         }
 
-        if(futurePos.y<0+this.radius){
+        if(futurePos.y<0){
             this.vy*=-1;
-            this.move(delta);
-            return;
+            futurePos.y = Math.abs(futurePos.y);
         }
         else if(futurePos.y>576-this.radius){
             this.respawn();
@@ -57,24 +86,19 @@ export default class BallController extends Component
             {
                 const dir = this.entity.getPosition();
                 const from = element.getPosition();
-                const speed = 300.0;
     
                 dir.x -= from.x;
                 dir.y -= from.y;
     
                 let length = dir.length;
     
-                dir.x = dir.x*speed/length;
-                dir.y = dir.y*speed/length;
+                dir.x = dir.x*this.speed/length;
+                dir.y = dir.y*this.speed/length;
     
                 this.vx =dir.x;
                 this.vy = dir.y;
 
                 this.entity.scene.breakBrick(this.bricks,element);
-                
-                this.move(delta);
-                
-                return;
             }
             
         });
@@ -93,15 +117,8 @@ export default class BallController extends Component
             dir.x = dir.x*this.speed/length;
             dir.y = dir.y*this.speed/length;
 
-            
-
             this.vx =dir.x;
             this.vy = dir.y;
-
-            
-
-            this.move(delta);
-            return;
         }
 
         this.entity.localPosition = futurePos;
@@ -109,10 +126,15 @@ export default class BallController extends Component
 
     respawn(){        
         this.vx = 0
-        this.vy = this.speed/2;
+        this.vy = 0;
 
-        this.entity.localPosition = new Vector2(1024/2,576/2+100);
+        this.entity.localPosition = new Vector2(0,-this.radius*2);
+        this.paddle.addChild(this.entity);
 
         this.entity.scene.lives -= 1;
+    }
+
+    destroy()  {
+        this.entity.scene.input.mouse.events.removeEventListener(MouseEvent.MOUSE_DOWN, this.onMouseDown, this);
     }
 }

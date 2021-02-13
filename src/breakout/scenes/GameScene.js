@@ -89,7 +89,7 @@ export default class GameScene extends Scene{
             bricks.push(brick)
         }
 
-        const ball = new Entity(this, 1024/2,576/2+100)
+        const ball = new Entity(this, 0,-30)
         new Image(ball, "ball")
         new Ball(ball, 15, bricks, paddle)
     }
@@ -102,6 +102,36 @@ export default class GameScene extends Scene{
         brick.localPosition.x = -100;
         
         this.score++;
+    }
+
+    rebrick(bricks)  {
+        for(var i=0;i<6;i++){
+            const brick = new Entity(this, 149+i*140, 135)
+            new Image(brick, "enemyBrick")
+            new Rectangle(brick, 132, 27)
+            bricks.push(brick)
+        }
+
+        for(var i=0;i<6;i++){
+            const brick = new Entity(this, 149+i*140, 185)
+            new Image(brick, "enemyBrick")
+            new Rectangle(brick, 132, 27)
+            bricks.push(brick)
+        }
+
+        for(var i=0;i<6;i++){
+            const brick = new Entity(this, 149+i*140, 235)
+            new Image(brick, "enemyBrick")
+            new Rectangle(brick, 132, 27)
+            bricks.push(brick)
+        }
+
+        for(var i=0;i<5;i++){
+            const brick = new Entity(this, 206+i*140, 285)
+            new Image(brick, "enemyBrick")
+            new Rectangle(brick, 132, 27)
+            bricks.push(brick)
+        }
     }
 
     pause() {
