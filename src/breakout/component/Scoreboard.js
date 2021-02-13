@@ -11,12 +11,14 @@ export default class Scoreboard extends TextField  {
      * @param {Entity} entity The entity this component is attached to.
      * @param {TextFieldConfig} config The configuration that controls the display of the text.
      */
-    constructor(entity, config=null)
+    constructor(entity, config=null, gameScene)
     {
         super(entity,"Score: \t0", config);
+
+        this.gameScene = gameScene;
     }
 
     update(delta)  {
-        this.text = "Score: \t"+this.entity.scene.score;
+        this.text = "Score: \t"+this.gameScene.score;
     }
 }

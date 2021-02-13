@@ -35,7 +35,7 @@ export default class GameScene extends Scene{
         this.score = 0;
 
         const scoreDisplay = new Entity(this, 1024/2.0, 60)
-        new Scoreboard(scoreDisplay,new TextFieldConfig("Arial", "42px", "#FFFFFF", TextAlign.CENTER))
+        new Scoreboard(scoreDisplay,new TextFieldConfig("Arial", "42px", "#FFFFFF", TextAlign.CENTER),this)
 
         const scoreLine=new Entity(this,1024/2,75)
         new Image(scoreLine,"splashLine")
