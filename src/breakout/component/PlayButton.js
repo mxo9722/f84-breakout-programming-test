@@ -4,11 +4,19 @@ import Mouse, {MouseEvent} from "../../core/input/Mouse.js";
 
 export default class SplashScene extends Button
 {
-
-    constructor(entity, width, height, onClickCallback, hoverImage, onClickCallbackContext=null){
+    /**
+     * @constructs Button
+     * @param {Entity} entity The entity the button component will be attached to.
+     * @param {Number} width The width of the button.
+     * @param {Number} height The height of the button.
+     * @param {Function} onClickCallback The function the button will call when clicked.
+     * @param {String} hoverImageKey The key of the hover image for the button
+     * @param {any} onClickCallbackContext The context that will be bound to the function when called. Usually set to 'this'.
+     */
+    constructor(entity, width, height, onClickCallback, hoverImageKey, onClickCallbackContext=null){
         
         super(entity, width, height, onClickCallback, onClickCallbackContext);
-        this.hoverImage = hoverImage;
+        this.hoverImageKey = hoverImageKey;
 
         this.origin = new Vector2(0.5, 0.5);
         const image = this.entity.scene.engine.assets.textures[this.key];
@@ -34,9 +42,6 @@ export default class SplashScene extends Button
     }
 
     mouseMove(event)  {
-        
-
-       
         this.hoverCheck.bind(this)(event);
     }
 
@@ -56,7 +61,7 @@ export default class SplashScene extends Button
 
             context.setTransform(1, 0, 0, 1, x, y); // sets scale and origin
             context.rotate(rotation*Math.PI/180.0);
-            const image = this.entity.scene.engine.assets.textures[this.hoverImage];
+            const image = this.entity.scene.engine.assets.textures[this.hoverImageKey];
             context.drawImage(image, -this.width*scaleX*this.origin.x, -this.height*scaleY*this.origin.y, this.width*scaleX, this.height*scaleY);
 
             context.restore();
@@ -75,7 +80,5 @@ export default class SplashScene extends Button
         this.entity.scene.input.mouse.events.removeEventListener(MouseEvent.MOUSE_MOVE, this.mouseMove, this);
         this.entity.scene.input.mouse.events.removeEventListener(MouseEvent.MOUSE_DOWN, this.onMouseDown, this);
         super.destroy();
-        this.destroyed = true;
-        this.entity = null;
     }
 }

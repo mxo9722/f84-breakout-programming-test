@@ -45,7 +45,7 @@ export default class SplashScene extends Scene
     play(event)
     {
          this.engine.scenes.remove(this);
-         //this.engine.scenes.add(new GameScene(this.engine));
+         this.engine.scenes.add(new GameScene(this.engine));
     }
 
     update(delta)
