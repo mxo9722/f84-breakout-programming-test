@@ -3,6 +3,11 @@ import Mouse, {MouseEvent} from "../../core/input/Mouse.js";
 
 export default class PaddleController extends Component
 {
+    /**
+     * @constructs PaddleController
+     * @param {Entity} entity The entity the PaddleController component will be attached to.
+     * @param {Number} width The width of the button
+     */
     constructor(entity, width){
         super(entity)
         this.width = width

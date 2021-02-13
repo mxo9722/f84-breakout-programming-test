@@ -32,7 +32,7 @@ export default class Vector2
      */
     get length()
     {
-        return sqrt(this.x+this.x * this.y+this.y);
+        return Math.sqrt(Math.abs(this.x*this.x + this.y*this.y));
     }
 
     /**

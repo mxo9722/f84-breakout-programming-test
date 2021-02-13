@@ -2,11 +2,12 @@ import Scene from '../../core/Scene.js';
 import Image from '../../core/components/Image.js';
 import Entity from '../../core/Entity.js';
 import TextField, { TextFieldConfig, TextAlign } from '../../core/components/TextField.js';
-import PlayButton from '../component/HoverButton.js';
 import PaddleController from '../component/PaddleControler.js';
 import HoverButton from '../component/HoverButton.js';
+import Rectangle from '../component/Rectangle.js';
+import Ball from '../component/BallController.js';
 
-export default class SplashScene extends Scene{
+export default class GameScene extends Scene{
     /**
      * 
      * @param {Engine} engine 
@@ -21,15 +22,16 @@ export default class SplashScene extends Scene{
         const paddle = new Entity(this, 1024/2, 576/2+240)
         new Image(paddle, "paddle")
         new PaddleController(paddle,150)
+        new Rectangle(paddle,150,18)
 
         const btnPause = new Entity(this, 60, 60)
         new Image(btnPause, "btnPause")
         new HoverButton(btnPause, 56, 56, this.pause, "btnPauseHover", this)
 
-        var score = 0;
+        this.score = 0;
 
         const scoreDisplay = new Entity(this, 1024/2.0, 60)
-        new TextField(scoreDisplay,"Score: "+score,new TextFieldConfig("Arial", "42px", "#FFFFFF", TextAlign.CENTER))
+        new TextField(scoreDisplay,"Score: "+this.score,new TextFieldConfig("Arial", "42px", "#FFFFFF", TextAlign.CENTER))
 
         const scoreLine=new Entity(this,1024/2,75)
         new Image(scoreLine,"splashLine")
@@ -41,7 +43,7 @@ export default class SplashScene extends Scene{
         const livesDisplay = new Entity(this, 1024-60,60)
         new TextField(livesDisplay, "Lives: \t", new TextFieldConfig("Arial", "14px", "#FFFFFF", TextAlign.CENTER))
 
-        var lives = 3;
+        this.lives = 3;
 
         const firstLife = new Entity(this, 15, 10);
         livesDisplay.addChild(firstLife);
@@ -60,26 +62,44 @@ export default class SplashScene extends Scene{
         for(var i=0;i<6;i++){
             const brick = new Entity(this, 149+i*140, 135)
             new Image(brick, "enemyBrick")
+            new Rectangle(brick, 132, 27)
             bricks.push(brick)
         }
 
         for(var i=0;i<6;i++){
             const brick = new Entity(this, 149+i*140, 185)
             new Image(brick, "enemyBrick")
+            new Rectangle(brick, 132, 27)
             bricks.push(brick)
         }
 
         for(var i=0;i<6;i++){
             const brick = new Entity(this, 149+i*140, 235)
             new Image(brick, "enemyBrick")
+            new Rectangle(brick, 132, 27)
             bricks.push(brick)
         }
 
         for(var i=0;i<5;i++){
             const brick = new Entity(this, 206+i*140, 285)
             new Image(brick, "enemyBrick")
+            new Rectangle(brick, 132, 27)
             bricks.push(brick)
         }
+
+        const ball = new Entity(this, 1024/2,576/2+100)
+        new Image(ball, "ball")
+        new Ball(ball, 15, bricks, paddle)
+    }
+
+    breakBrick(bricks, brick)
+    {
+        const index=bricks.indexOf(brick);
+        bricks.splice (index, 1);
+
+        brick.localPosition.x = -100;
+        
+        this.score++;
     }
 
     pause() {
