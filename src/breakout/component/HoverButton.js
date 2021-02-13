@@ -79,6 +79,6 @@ export default class HoverButton extends Button
         console.log("Destroy");
         this.entity.scene.input.mouse.events.removeEventListener(MouseEvent.MOUSE_MOVE, this.mouseMove, this);
         this.entity.scene.input.mouse.events.removeEventListener(MouseEvent.MOUSE_DOWN, this.onMouseDown, this);
-        //super.destroy();
+        super.destroy();
     }
 }

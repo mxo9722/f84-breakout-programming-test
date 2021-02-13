@@ -26,6 +26,10 @@ export default class BallController extends Component
     }
 
     update(delta){
+        if(this.entity.scene.engine.scenes.scenes.length==2)  {
+            return;
+        }
+
         if(this.entity.parent!=this.paddle){
             this.move(delta)
         }

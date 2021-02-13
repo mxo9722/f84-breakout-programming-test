@@ -8,6 +8,7 @@ import PaddleController from '../component/PaddleControler.js';
 import HoverButton from '../component/HoverButton.js';
 import Rectangle from '../component/Rectangle.js';
 import Ball from '../component/BallController.js';
+import PauseScene from './PauseScene.js';
 
 export default class GameScene extends Scene{
     /**
@@ -135,6 +136,8 @@ export default class GameScene extends Scene{
     }
 
     pause() {
-        console.log("Pause")
+        if(this.engine.scenes.scenes.length==1)  {
+            this.engine.scenes.add(new PauseScene(this.engine));
+        }
     }
 }
