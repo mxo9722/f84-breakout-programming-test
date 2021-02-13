@@ -2,6 +2,7 @@ import Scene from '../../core/Scene.js';
 import Image from '../../core/components/Image.js';
 import Entity from '../../core/Entity.js';
 import TextField, { TextFieldConfig, TextAlign } from '../../core/components/TextField.js';
+import Scoreboard from '../component/Scoreboard.js';
 import PaddleController from '../component/PaddleControler.js';
 import HoverButton from '../component/HoverButton.js';
 import Rectangle from '../component/Rectangle.js';
@@ -31,7 +32,7 @@ export default class GameScene extends Scene{
         this.score = 0;
 
         const scoreDisplay = new Entity(this, 1024/2.0, 60)
-        new TextField(scoreDisplay,"Score: "+this.score,new TextFieldConfig("Arial", "42px", "#FFFFFF", TextAlign.CENTER))
+        new Scoreboard(scoreDisplay,new TextFieldConfig("Arial", "42px", "#FFFFFF", TextAlign.CENTER))
 
         const scoreLine=new Entity(this,1024/2,75)
         new Image(scoreLine,"splashLine")
