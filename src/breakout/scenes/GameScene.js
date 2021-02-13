@@ -38,6 +38,48 @@ export default class SplashScene extends Scene{
         const highScore = new Entity(this, 1024/2.0-30, 100)
         new TextField(highScore, "High Score: \t", new TextFieldConfig("Arial", "20px", "#FFFFFF", TextAlign.CENTER))
 
+        const livesDisplay = new Entity(this, 1024-60,60)
+        new TextField(livesDisplay, "Lives: \t", new TextFieldConfig("Arial", "14px", "#FFFFFF", TextAlign.CENTER))
+
+        var lives = 3;
+
+        const firstLife = new Entity(this, 15, 10);
+        livesDisplay.addChild(firstLife);
+        new Image(firstLife,"lifeFull")
+
+        const secondLife = new Entity(this, 0, 10);
+        livesDisplay.addChild(secondLife);
+        new Image(secondLife,"lifeFull")
+
+        const thirdLife = new Entity(this, -15, 10);
+        livesDisplay.addChild(thirdLife);
+        new Image(thirdLife,"lifeFull")
+
+        const bricks = []
+
+        for(var i=0;i<6;i++){
+            const brick = new Entity(this, 149+i*140, 135)
+            new Image(brick, "enemyBrick")
+            bricks.push(brick)
+        }
+
+        for(var i=0;i<6;i++){
+            const brick = new Entity(this, 149+i*140, 185)
+            new Image(brick, "enemyBrick")
+            bricks.push(brick)
+        }
+
+        for(var i=0;i<6;i++){
+            const brick = new Entity(this, 149+i*140, 235)
+            new Image(brick, "enemyBrick")
+            bricks.push(brick)
+        }
+
+        for(var i=0;i<5;i++){
+            const brick = new Entity(this, 206+i*140, 285)
+            new Image(brick, "enemyBrick")
+            bricks.push(brick)
+        }
     }
 
     pause() {
