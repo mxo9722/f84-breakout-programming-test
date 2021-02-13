@@ -23,7 +23,7 @@ export default class PaddleController extends Component
     }
 
     onMouseMoved(event)  {
-        console.log("move")
+        
         this.movePaddle.bind(this)(event);
     }
 

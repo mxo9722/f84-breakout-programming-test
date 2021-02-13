@@ -9,6 +9,7 @@ import HoverButton from '../component/HoverButton.js';
 import Rectangle from '../component/Rectangle.js';
 import Ball from '../component/BallController.js';
 import PauseScene from './PauseScene.js';
+import GameOverScene from './GameOverScene.js';
 
 export default class GameScene extends Scene{
     /**
@@ -93,6 +94,12 @@ export default class GameScene extends Scene{
         const ball = new Entity(this, 0,-30)
         new Image(ball, "ball")
         new Ball(ball, 15, bricks, paddle)
+    }
+
+    update(delta)  {
+        if(this.lives==0 && this.engine.scenes.scenes.length==1)  {
+            this.engine.scenes.add(new GameOverScene(this.engine));
+        }
     }
 
     breakBrick(bricks, brick)

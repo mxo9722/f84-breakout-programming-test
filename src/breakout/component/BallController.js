@@ -26,7 +26,10 @@ export default class BallController extends Component
     }
 
     update(delta){
+        console.log(this.vy)
+
         if(this.entity.scene.engine.scenes.scenes.length==2)  {
+            console.log(this.entity.scene.engine.scenes.scenes.length);
             return;
         }
 
