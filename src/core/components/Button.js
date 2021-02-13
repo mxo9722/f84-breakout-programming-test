@@ -89,5 +89,6 @@ export default class Button extends Component
     destroy()
     {
         this.entity.scene.input.mouse.events.removeEventListener(MouseEvent.MOUSE_DOWN, this.onMouseDown, this);
+        super.destroy();
     }
 }
