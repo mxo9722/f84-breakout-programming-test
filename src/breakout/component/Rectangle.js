@@ -7,12 +7,24 @@ export default class Rectangle extends Component  {
     constructor(entity, width, height)  {
         super(entity, width, height)
 
+        /** 
+         * The width of the rectange. 
+         * @public
+         * @type {Number} 
+         * @member Rectangle#width
+         */
         this.width = width;
+        /** 
+         * The height of the rectangle
+         * @public
+         * @type {Number} 
+         * @member Rectangle#height
+         */
         this.height = height;
         /** 
          * The origin point of the rectangle. This defaults to center, (0.5, 0.5), which matches the default origin of Images. 
          * @public
-         * @type {Number} 
+         * @type {Vector2} 
          * @member Rectangle#origin
          */
         this.origin = new Vector2(0.5, 0.5);

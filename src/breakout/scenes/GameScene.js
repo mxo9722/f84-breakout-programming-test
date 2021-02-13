@@ -26,7 +26,7 @@ export default class GameScene extends Scene{
         
         const paddle = new Entity(this, 1024/2, 576/2+240)
         new Image(paddle, "paddle")
-        new PaddleController(paddle,150)
+        new PaddleController(paddle)
         new Rectangle(paddle,150,18)
 
         const btnPause = new Entity(this, 60, 60)

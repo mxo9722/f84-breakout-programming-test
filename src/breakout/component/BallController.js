@@ -96,6 +96,9 @@ export default class BallController extends Component
     
                 dir.x -= from.x;
                 dir.y -= from.y;
+
+                //with such long horizontal bricks a multiplier like this is necessary so that the ball bounces up and down faster
+                dir.y *= 2;
     
                 let length = dir.length;
     
@@ -117,7 +120,7 @@ export default class BallController extends Component
             dir.x -= from.x;
             dir.y -= from.y;
 
-            console.log(dir.x)
+            dir.y *= 2;
 
             let length = dir.length;
 

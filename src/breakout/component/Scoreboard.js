@@ -17,6 +17,12 @@ export default class ScoreBoard extends TextField  {
     {
         super(entity,"Score: \t0", config);
 
+        /** 
+         * The GameScene in which the game is either actively being played or where the game was being played.
+         * @public
+         * @type {GameScene} 
+         * @member ScoreBoard #gameScene
+         */
         this.gameScene = gameScene;
     }
 

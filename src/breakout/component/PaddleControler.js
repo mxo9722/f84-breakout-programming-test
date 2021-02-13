@@ -6,11 +6,9 @@ export default class PaddleController extends Component
     /**
      * @constructs PaddleController
      * @param {Entity} entity The entity the PaddleController component will be attached to.
-     * @param {Number} width The width of the button
      */
-    constructor(entity, width){
+    constructor(entity){
         super(entity)
-        this.width = width
 
         this.entity.scene.input.mouse.events.addEventListener(MouseEvent.MOUSE_MOVE, this.onMouseMoved, this);
     }

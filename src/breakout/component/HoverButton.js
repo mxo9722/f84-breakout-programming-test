@@ -16,14 +16,45 @@ export default class HoverButton extends Button
     constructor(entity, width, height, onClickCallback, hoverImageKey, onClickCallbackContext=null){
         
         super(entity, width, height, onClickCallback, onClickCallbackContext);
+        
+        /** 
+         * The key of the hover image for the button
+         * @public
+         * @type {String} 
+         * @member HoverButton#hoverImageKey
+         */
         this.hoverImageKey = hoverImageKey;
 
+        /** 
+         * The origin point of the HoverButton. This defaults to center, (0.5, 0.5), which matches the default origin of Images. 
+         * @public
+         * @type {Vector2} 
+         * @member HoverButton#origin
+         */
         this.origin = new Vector2(0.5, 0.5);
         const image = this.entity.scene.engine.assets.textures[this.key];
         
+        /** 
+         * The width of the HoverButton.
+         * @public
+         * @type {Number} 
+         * @member HoverButton#width
+         */
         this.width = this.width;
-        
+        /** 
+         * The height of the HoverButton.
+         * @public
+         * @type {Number} 
+         * @member HoverButton#height
+         */
         this.height = this.height;
+
+        /** 
+         * Whether or not the mouse is currently hovering over the button
+         * @public
+         * @type {Boolean} 
+         * @member HoverButton#hover
+         */
         this.hover = false;
 
         this.entity.scene.input.mouse.events.addEventListener(MouseEvent.MOUSE_MOVE, this.mouseMove, this);
@@ -44,8 +75,6 @@ export default class HoverButton extends Button
     mouseMove(event)  {
         this.hoverCheck.bind(this)(event);
     }
-
-    
 
     render(context){
         if(this.hover){
@@ -68,12 +97,6 @@ export default class HoverButton extends Button
         }
     }
 
-    /**
-     * Cleans up input listeners the button is subscribed to.
-     * @instance
-     * @memberof HoverButton
-     * @param {Vector2} event 
-     */
     destroy()
     {
         console.log("Destroy");
